@@ -1,0 +1,49 @@
+version: '3.4'
+
+x-logging:
+  &default-logging
+  options:
+    max-size: "10m"
+    max-file: "5"
+  driver: json-file
+
+services:
+  gatewayapi:
+    depends_on:
+      - rabbitmq
+    image: dtupayimage:latest
+    ports:
+      - "8082:8082"
+    restart: always
+    logging: *default-logging
+  reporting:
+    depends_on:
+      - gatewayapi
+    build:
+    image: reportingimage:latest
+    restart: always
+    logging: *default-logging
+  token:
+    depends_on:
+      - gatewayapi
+    image: tokenmanagerimage:latest
+    restart: always
+    logging: *default-logging
+  user:
+    depends_on:
+      - gatewayapi
+    image: usermanagerimage:latest
+    restart: always
+    logging: *default-logging
+  payment:
+    depends_on:
+      - gatewayapi
+    image: paymentmanagerimage:latest
+    restart: always
+    logging: *default-logging
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
