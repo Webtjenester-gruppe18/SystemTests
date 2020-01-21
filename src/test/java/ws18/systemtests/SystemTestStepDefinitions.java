@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class SystemTestStepDefinitions {
 
-    private final String URL = "localhost:8082/"; /*"http://fastmoney-18.compute.dtu.dk:8082/";*/
+    private final String URL = "http://fastmoney-18.compute.dtu.dk:8082/";
     private Customer customer;
     private Merchant merchant;
     private BankService bank;
