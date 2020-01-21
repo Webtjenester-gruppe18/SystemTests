@@ -166,24 +166,6 @@ public class SystemTestStepDefinitions {
         Assert.assertEquals(200, response.getStatus());
     }
 
-    @Given("The customer has made at least {int} transaction")
-    public void theCustomerHasMadeAtLeastTransaction(Integer int1) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @When("The customer asks for an overview of his transactions")
-    public void theCustomerAsksForAnOverviewOfHisTransactions() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
-    @Then("An overview will be shown to the customer")
-    public void anOverviewWillBeShownToTheCustomer() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new cucumber.api.PendingException();
-    }
-
     @When("The customer deletes himself")
     public void theCustomerDeletesHimself() {
         String url = this.URL + "customers/" + this.customer.getCprNumber();
