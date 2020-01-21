@@ -5,7 +5,7 @@ pipeline {
       steps {
         sh '''
         cd ./dockertest;
-        docker-compose -d up;
+        docker-compose up -d ;
         cd ..;
         mvn test;
         docker container stop $(docker container ls --filter "label=test");
@@ -18,7 +18,7 @@ pipeline {
             sh '''
             docker container stop $(docker container ls --filter "label=prod");
             docker container rm $(docker container ls --filter "label=prod");
-            docker-compose -d up;
+            docker-compose up -d ;
             '''
           }
      }
