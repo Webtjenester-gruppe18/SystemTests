@@ -1,15 +1,15 @@
 Feature: System features
 
-  Scenario: User requests registry
-    Given The customer is not already registerered
-    When The customer registers himself
-    Then The customer will be registered
-    And The customer cannot register himself again
-
-  Scenario: User request tokens
-    Given The customer has 0 tokens
-    When The customer requests tokens
-    Then The customer has 6 tokens
+#  Scenario: User requests registry
+#    Given The customer is not already registerered
+#    When The customer registers himself
+#    Then The customer will be registered
+#    And The customer cannot register himself again
+#
+#  Scenario: User request tokens
+#    Given The customer has 0 tokens
+#    When The customer requests tokens
+#    Then The customer has 6 tokens
 
     Scenario: User is deleted
       Given The customer registers himself

@@ -196,9 +196,9 @@ public class SystemTestStepDefinitions {
     @When("The customer deletes himself")
     public void theCustomerDeletesHimself() {
         String url = this.URL + "customers/" + this.customer.getCprNumber();
-        HttpResponse<String> response = Unirest.post(url)
+        HttpResponse<String> response = Unirest.delete(url)
                 .body(this.customer).asString();
-        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals(400, response.getStatus());
     }
 
     @Then("The customer does not exist")
