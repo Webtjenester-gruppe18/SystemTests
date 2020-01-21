@@ -146,33 +146,24 @@ public class SystemTestStepDefinitions {
     }
 
 
-    @Given("The merchant has {int} currency in the bank")
-    public void theMerchantHasCurrencyInTheBank(Integer int1) throws BankServiceException_Exception {
-        String balance = bank.getAccountByCprNumber(this.merchant.getCprNumber()).getBalance().toString();
-        Assert.assertEquals(int1.toString(), balance);
-    }
-
     @When("The customer transfers {int} currency to the merchant")
     public void theCustomerTransfersCurrencyToTheMerchant(Integer int1) {
         String url = this.URL + "payments";
+        String urlToken = this.URL + "tokens/" + this.customer.getCprNumber();
+        HttpResponse<Token[]> token = Unirest.get(urlToken).asObject(Token[].class);
+        Token tokenToUse = token.getBody()[0];
         Payment payment = new Payment();
         payment.setAmount(int1);
         payment.setCpr(customer.getCprNumber());
         payment.setDescription("test");
         payment.setFromAccountNumber(customer.getAccountId());
         payment.setToAccountNumber(merchant.getAccountId());
-        payment.setToken(payment.getToken());
+        payment.setToken(tokenToUse);
 
         HttpResponse<String> response = Unirest.post(url)
                 .header("Content-Type", "application/json")
                 .body(payment).asString();
         Assert.assertEquals(200, response.getStatus());
-    }
-
-    @Then("The customer has {int} currency in the bank")
-    public void theCustomerHasCurrencyInTheBank(Integer int1) throws BankServiceException_Exception {
-                String balance = bank.getAccountByCprNumber(this.customer.getCprNumber()).getBalance().toString();
-        Assert.assertEquals(int1.toString(), balance);
     }
 
     @Given("The customer has made at least {int} transaction")
@@ -207,4 +198,17 @@ public class SystemTestStepDefinitions {
         HttpResponse<String> response = Unirest.get(url)
                 .asString();
         Assert.assertEquals(404, response.getStatus());    }
+
+    @And("The customer has {string} currency in the bank")
+    public void theCustomerHasCurrencyInTheBank(String amount) throws BankServiceException_Exception {
+        String balance = bank.getAccountByCprNumber(this.customer.getCprNumber()).getBalance().toString();
+
+        Assert.assertEquals(amount, balance);
+    }
+
+    @And("The merchant has {string} currency in the bank")
+    public void theMerchantHasCurrencyInTheBank(String amount) throws BankServiceException_Exception {
+        String balance = bank.getAccountByCprNumber(this.merchant.getCprNumber()).getBalance().toString();
+        Assert.assertEquals(amount.toString(), balance);
+    }
 }
