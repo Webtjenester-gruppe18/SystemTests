@@ -12,9 +12,9 @@ services:
     depends_on:
       - rabbitmq
     image: dtupayimage:latest
-    container_name: dtupay
+    container_name: dtupaytest
     labels:
-      -prod
+      -test
     ports:
       - "8082:8082"
     restart: always
@@ -23,36 +23,36 @@ services:
     depends_on:
       - gatewayapi
     image: reportingimage:latest
-    container_name: report
+    container_name: reporttest
     labels:
-      -prod
+      -test
     restart: always
     logging: *default-logging
   token:
     depends_on:
       - gatewayapi
     image: tokenmanagerimage:latest
-    container_name: token
+    container_name: tokentest
     labels:
-      -prod
+      -test
     restart: always
     logging: *default-logging
   user:
     depends_on:
       - gatewayapi
     image: usermanagerimage:latest
-    container_name: user
+    container_name: usertest
     labels:
-      -prod
+      -test
     restart: always
     logging: *default-logging
   payment:
     depends_on:
       - gatewayapi
     image: paymentmanagerimage:latest
-    container_name: payment
+    container_name: paymenttest
     labels:
-      -prod
+      -test
     restart: always
     logging: *default-logging
 

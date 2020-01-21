@@ -4,18 +4,20 @@ pipeline {
     stage('Test') {
       steps {
         sh '''
-        docker container stop $(docker container ls -aq);
-        docker container rm $(docker container ls -aq);
+        cd ./dockertest;
         docker-compose -d up;
+        cd ..;
         mvn test;
-        docker container stop $(docker container ls -aq);
-        docker container rm $(docker container ls -aq);
+        docker container stop $(docker container ls --filter "label=test");
+        docker container rm $(docker container ls --filter "label=test");
         '''
       }
     }
      stage('Deploy') {
           steps {
             sh '''
+            docker container stop $(docker container ls --filter "label=prod");
+            docker container rm $(docker container ls --filter "label=prod");
             docker-compose -d up;
             '''
           }
