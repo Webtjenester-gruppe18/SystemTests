@@ -13,8 +13,6 @@ services:
       - rabbitmq
     image: dtupayimage:latest
     container_name: dtupay
-    labels:
-      -env:prod
     ports:
       - "8082:8082"
     restart: always
@@ -24,8 +22,6 @@ services:
       - gatewayapi
     image: reportingimage:latest
     container_name: report
-    labels:
-      -env:prod
     restart: always
     logging: *default-logging
   token:
@@ -33,8 +29,6 @@ services:
       - gatewayapi
     image: tokenmanagerimage:latest
     container_name: token
-    labels:
-      -env:prod
     restart: always
     logging: *default-logging
   user:
@@ -42,8 +36,6 @@ services:
       - gatewayapi
     image: usermanagerimage:latest
     container_name: user
-    labels:
-      -env:prod
     restart: always
     logging: *default-logging
   payment:
@@ -51,9 +43,11 @@ services:
       - gatewayapi
     image: paymentmanagerimage:latest
     container_name: payment
-    labels:
-      -env:prod
     restart: always
     logging: *default-logging
-
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
