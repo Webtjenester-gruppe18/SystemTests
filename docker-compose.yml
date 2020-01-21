@@ -14,7 +14,7 @@ services:
     image: dtupayimage:latest
     container_name: dtupay
     labels:
-      -prod
+      -env:prod
     ports:
       - "8082:8082"
     restart: always
@@ -25,7 +25,7 @@ services:
     image: reportingimage:latest
     container_name: report
     labels:
-      -prod
+      -env:prod
     restart: always
     logging: *default-logging
   token:
@@ -34,7 +34,7 @@ services:
     image: tokenmanagerimage:latest
     container_name: token
     labels:
-      -prod
+      -env:prod
     restart: always
     logging: *default-logging
   user:
@@ -43,7 +43,7 @@ services:
     image: usermanagerimage:latest
     container_name: user
     labels:
-      -prod
+      -env:prod
     restart: always
     logging: *default-logging
   payment:
@@ -52,7 +52,7 @@ services:
     image: paymentmanagerimage:latest
     container_name: payment
     labels:
-      -prod
+      -env:prod
     restart: always
     logging: *default-logging
 
