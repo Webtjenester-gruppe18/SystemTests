@@ -6,8 +6,10 @@ pipeline {
         sh '''
         docker-compose up -d ;
         mvn test;
+        docker system prune;
         '''
       }
     }
+
   }
 }
